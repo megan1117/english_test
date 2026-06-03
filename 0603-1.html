@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ 紙電路實作學習單</title>
+    <!-- 引入 Tailwind CSS (負責排版與美觀) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 SweetAlert2 (負責精美的彈出視窗) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* 隱藏捲軸但保持可以捲動 (視覺更乾淨) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body { background-color: #f8fafc; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- 主容器 -->
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+        
+        <!-- 標題區塊 -->
+        <div class="bg-gradient-to-r from-yellow-400 to-amber-500 p-6 text-center text-white">
+            <h1 class="text-3xl font-bold mb-2">⚡ 紙電路實作</h1>
+            <p class="text-amber-50 text-sm">課後反思與學習紀錄單</p>
+        </div>
+
+        <!-- 表單區塊 -->
+        <form id="learningForm" class="p-6 sm:p-8 space-y-6">
+            
+            <!-- 班級座號 & 姓名 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">班級座號 <span class="text-red-500">*</span></label>
+                    <input type="text" name="classNum" required placeholder="例如：701-05"
+                        class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">學生姓名 <span class="text-red-500">*</span></label>
+                    <input type="text" name="name" required placeholder="你的名字"
+                        class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all">
+                </div>
+            </div>
+
+            <!-- LED 顏色選擇 -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">你使用了什麼顏色的 LED 燈？ <span class="text-red-500">*</span></label>
+                <select name="ledColor" required
+                    class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all appearance-none cursor-pointer">
+                    <option value="" disabled selected>請選擇顏色...</option>
+                    <option value="紅色 (Red)">🔴 紅色 (Red)</option>
+                    <option value="藍色 (Blue)">🔵 藍色 (Blue)</option>
+                    <option value="綠色 (Green)">🟢 綠色 (Green)</option>
+                    <option value="黃色 (Yellow)">🟡 黃色 (Yellow)</option>
+                    <option value="白色 (White)">⚪ 白色 (White)</option>
+                    <option value="綜合/其他">✨ 綜合/其他</option>
+                </select>
+            </div>
+
+            <!-- 成功狀態 -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">最後的電路有成功發光嗎？ <span class="text-red-500">*</span></label>
+                <div class="flex space-x-4">
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="isSuccess" value="成功" required class="peer sr-only">
+                        <div class="text-center p-3 rounded-lg border border-slate-200 peer-checked:bg-green-50 peer-checked:border-green-400 peer-checked:text-green-700 hover:bg-slate-50 transition-all">
+                            🌟 成功亮了！
+                        </div>
+                    </label>
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="isSuccess" value="失敗" required class="peer sr-only">
+                        <div class="text-center p-3 rounded-lg border border-slate-200 peer-checked:bg-red-50 peer-checked:border-red-400 peer-checked:text-red-700 hover:bg-slate-50 transition-all">
+                            😢 還沒亮...
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 困難與反思 -->
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">實作遇到的困難與反思 <span class="text-red-500">*</span></label>
+                <p class="text-xs text-slate-500 mb-2">請描述你在剪貼銅箔膠帶、折疊電池夾時，有沒有遇到什麼狀況？你學到了什麼？</p>
+                <textarea name="reflection" rows="4" required placeholder="寫下你的心得..."
+                    class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all resize-none"></textarea>
+            </div>
+
+            <!-- 送出按鈕 -->
+            <button id="submitBtn" type="submit"
+                class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                🚀 送出學習單
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('learningForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 防止畫面重新整理
+
+            // --- 👇👇👇 請將下面這行單引號內的網址替換成您的 GAS 網址 👇👇👇 ---
+            const GAS_URL = 'https://script.google.com/macros/s/AKfycbzALK7GrWUzqzWl_JUZkHiwo1ttyd3FIenb4DLhtsqk3iqffCzeGMzoq4XQd_hEdyM2OA/exec';
+            // --- 👆👆👆 替換完畢 👆👆👆 ---
+
+            // 按鈕狀態切換 (顯示傳送中)
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '傳送中... ⏳';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            // 收集表單資料
+            const formData = new FormData(this);
+
+            // 傳送資料到 GAS
+            fetch(GAS_URL, {
+                method: 'POST',
+                mode: 'no-cors', // 使用 no-cors 避免跨網域阻擋問題
+                body: new URLSearchParams(formData)
+            })
+            .then(() => {
+                // 成功動畫提示
+                Swal.fire({
+                    icon: 'success',
+                    title: '🎉 太棒了！',
+                    text: '你的學習單已成功送出！',
+                    confirmButtonColor: '#f59e0b'
+                });
+                
+                // 清空表單與恢復按鈕狀態
+                this.reset();
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            })
+            .catch(error => {
+                // 錯誤提示
+                Swal.fire({
+                    icon: 'error',
+                    title: '傳送失敗 😢',
+                    text: '請檢查網路連線或稍後再試。',
+                    confirmButtonColor: '#ef4444'
+                });
+                
+                // 恢復按鈕狀態
+                console.error('Error:', error);
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            });
+        });
+    </script>
+</body>
+</html>
