@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>隨堂小測驗</title>
   <style>
-    /* CSS：乾淨明亮、適合國中生的現代化風格 */
+    /* CSS：乾淨明亮、充滿溫暖風格的現代化設計 */
     :root {
-      --primary-color: #0ea5e9; /* 天藍色 */
-      --primary-hover: #0284c7;
-      --bg-color: #f0f9ff;
+      /* 改為溫暖親切的蜜桃/珊瑚橘色系 */
+      --primary-color: #ff7e67; /* 溫暖的珊瑚橘 */
+      --primary-hover: #e06c57;
+      --bg-color: #fff5f3; /* 淺淺的暖粉膚色背景 */
       --card-bg: #ffffff;
-      --text-main: #334155;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
+      --text-main: #4a4a4a; /* 柔和的深灰色字體 */
+      --text-muted: #888888;
+      --border-color: #ffd8d1; /* 暖色邊框 */
+      --checked-bg: #fff0ed; /* 選取時的暖色背景 */
       --success-bg: #dcfce7;
       --success-text: #166534;
       --error-bg: #fee2e2;
@@ -42,8 +44,8 @@
       width: 100%;
       max-width: 550px;
       padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.1);
+      border-radius: 24px; /* 更圓潤的邊角 */
+      box-shadow: 0 12px 30px rgba(255, 126, 103, 0.15); /* 帶有暖色調的陰影 */
     }
 
     h1 {
@@ -74,7 +76,7 @@
       padding: 12px 16px;
       font-size: 1rem;
       border: 2px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 12px;
       outline: none;
       transition: all 0.3s ease;
       color: var(--text-main);
@@ -82,46 +84,49 @@
 
     .name-input:focus {
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+      box-shadow: 0 0 0 4px rgba(255, 126, 103, 0.2);
     }
 
     .name-input::placeholder {
-      color: #94a3b8;
+      color: #bfaea8;
     }
 
     /* 選擇題樣式 */
     .options-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .option-label {
       display: flex;
       align-items: center;
-      padding: 12px 16px;
+      padding: 14px 16px;
       border: 2px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
       font-size: 1rem;
+      background-color: #fafafa;
     }
 
     .option-label:hover {
-      background-color: #f8fafc;
-      border-color: #cbd5e1;
+      background-color: #fff;
+      border-color: var(--primary-color);
+      transform: translateY(-1px);
     }
 
-    /* 當單選框被選中時，改變外框顏色 */
+    /* 當單選框被選中時，改變外框顏色與背景 */
     .option-label:has(input:checked) {
       border-color: var(--primary-color);
-      background-color: #f0f9ff;
+      background-color: var(--checked-bg);
+      font-weight: bold;
     }
 
     input[type="radio"] {
       margin-right: 12px;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       accent-color: var(--primary-color);
       cursor: pointer;
     }
@@ -133,22 +138,24 @@
       color: white;
       border: none;
       padding: 16px;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: bold;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 10px;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(255, 126, 103, 0.3);
     }
 
     .submit-btn:hover {
       background-color: var(--primary-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 126, 103, 0.4);
     }
 
     .submit-btn:active {
       transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(255, 126, 103, 0.3);
     }
 
     /* 結果顯示區塊 */
@@ -188,55 +195,55 @@
 <body>
 
   <div class="quiz-card">
-    <h1>📝 隨堂小測驗</h1>
+    <h1>✨ 輕鬆隨堂小測驗 ✨</h1>
 
     <!-- 學生姓名 -->
     <div class="section-block">
-      <label class="section-title" for="studentName">請輸入你的姓名：</label>
+      <label class="section-title" for="studentName">🙋 請輸入你的姓名：</label>
       <input type="text" id="studentName" class="name-input" placeholder="例如：王小明" required>
     </div>
 
     <!-- 第一題 -->
     <div class="section-block">
-      <div class="section-title">1. 台灣最高的山是哪一座？</div>
+      <div class="section-title">1. 海洋佔全球面積約多少？ 🌍</div>
       <div class="options-group">
         <label class="option-label">
-          <input type="radio" name="q1" value="阿里山"> 阿里山
+          <input type="radio" name="q1" value="50%"> 50%
         </label>
         <label class="option-label">
-          <input type="radio" name="q1" value="玉山"> 玉山
+          <input type="radio" name="q1" value="60%"> 60%
         </label>
         <label class="option-label">
-          <input type="radio" name="q1" value="陽明山"> 陽明山
+          <input type="radio" name="q1" value="70%"> 70%
         </label>
       </div>
     </div>
 
     <!-- 第二題 -->
     <div class="section-block">
-      <div class="section-title">2. 水的三態中，固態稱為什麼？</div>
+      <div class="section-title">2. 淺海區是指海洋深度約多少以內的區域？ 🐠</div>
       <div class="options-group">
         <label class="option-label">
-          <input type="radio" name="q2" value="冰"> 冰
+          <input type="radio" name="q2" value="100公尺"> 100公尺
         </label>
         <label class="option-label">
-          <input type="radio" name="q2" value="水蒸氣"> 水蒸氣
+          <input type="radio" name="q2" value="200公尺"> 200公尺
         </label>
         <label class="option-label">
-          <input type="radio" name="q2" value="雲"> 雲
+          <input type="radio" name="q2" value="500公尺"> 500公尺
         </label>
       </div>
     </div>
 
     <!-- 送出按鈕 -->
-    <button class="submit-btn" onclick="submitQuiz()" id="submitBtn">送出並看成績</button>
+    <button class="submit-btn" onclick="submitQuiz()" id="submitBtn">🚀 送出並看成績</button>
 
     <!-- 顯示成績與狀態 -->
     <div id="resultArea" class="result-display"></div>
   </div>
 
   <script>
-    // ⚠️ 請在這裡貼上您部署 Google Apps Script 後取得的 Web App URL
+    // ⚠️ 這裡保持您部署 Google Apps Script 後取得的 Web App URL
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbz6XPtC060Kwdb7SPLxT66rnB0IlVGBvw4tCwt94Mlr7frVwaOauZVxIBMB7nPj3kuh9Q/exec';
 
     function submitQuiz() {
@@ -261,20 +268,21 @@
 
       // 防止重複點擊送出
       submitBtn.disabled = true;
-      submitBtn.innerText = '成績計算與傳送中...';
+      submitBtn.innerText = '成績計算與傳送中... ⏳';
       submitBtn.style.opacity = '0.7';
 
       // 3. 計算分數 (每題 50 分，總分 100 分)
       let score = 0;
-      if (q1Element.value === '玉山') score += 50;
-      if (q2Element.value === '冰') score += 50;
+      // 更新為新的正確解答
+      if (q1Element.value === '70%') score += 50;
+      if (q2Element.value === '200公尺') score += 50;
 
       // 預先顯示成績並提示上傳中
       resultArea.style.display = 'block';
       resultArea.className = 'result-display success';
       resultArea.innerHTML = `
         <strong>💯 ${score} 分</strong>
-        ${name} 同學，作答完成！
+        ${name} 同學，作答完成！🎉
         <div class="status-msg">⏳ 正在將成績同步至系統...</div>
       `;
 
@@ -284,28 +292,10 @@
         score: score
       };
 
-      // 如果尚未設定 URL，僅作本地演示
-      if(GAS_URL === '請貼上您的_GOOGLE_WEB_APP_URL') {
-        setTimeout(() => {
-          resultArea.innerHTML = `
-            <strong>💯 ${score} 分</strong>
-            ${name} 同學，作答完成！
-            <div class="status-msg" style="color: #b45309;">
-              ⚠️ 本地測試模式：尚未設定 GAS URL，成績未上傳至試算表。
-            </div>
-          `;
-          submitBtn.disabled = false;
-          submitBtn.innerText = '再次送出';
-          submitBtn.style.opacity = '1';
-        }, 1000);
-        return;
-      }
-
       // 5. 透過 fetch API 傳送資料到 Google 試算表
       fetch(GAS_URL, {
         method: 'POST',
         headers: {
-          // 使用 text/plain 可有效避免 CORS 預檢請求被擋
           'Content-Type': 'text/plain;charset=utf-8'
         },
         body: JSON.stringify(quizData),
@@ -316,14 +306,14 @@
         if(result.status === 'success') {
           resultArea.innerHTML = `
             <strong>💯 ${score} 分</strong>
-            ${name} 同學，作答完成！
+            ${name} 同學，作答完成！🎉
             <div class="status-msg">✅ 你的成績已成功記錄到老師的試算表中！</div>
           `;
         } else {
           resultArea.className = 'result-display error';
           resultArea.innerHTML = `
             <strong>💯 ${score} 分</strong>
-            ${name} 同學，作答完成！
+            ${name} 同學，作答完成！🎉
             <div class="status-msg">❌ 紀錄失敗：${result.message}</div>
           `;
         }
@@ -333,14 +323,14 @@
         resultArea.className = 'result-display error';
         resultArea.innerHTML = `
           <strong>💯 ${score} 分</strong>
-          ${name} 同學，作答完成！
+          ${name} 同學，作答完成！🎉
           <div class="status-msg">⚠️ 網路連線發生問題，成績未能上傳。</div>
         `;
       })
       .finally(() => {
         // 恢復按鈕狀態
         submitBtn.disabled = false;
-        submitBtn.innerText = '重新送出成績';
+        submitBtn.innerText = '🔄 重新送出成績';
         submitBtn.style.opacity = '1';
       });
     }
